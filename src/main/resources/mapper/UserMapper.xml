@@ -55,7 +55,7 @@
         select * from member_list where id = #{id}
     </select>
     <delete id="del" parameterType="User">
-        delete * from where id = #{id}
+        delete * from where id=#{id}
     </delete>
 
 </mapper>

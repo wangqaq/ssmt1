@@ -91,7 +91,8 @@ layui.use(['form', 'upload','layer', 'jquery', 'laydate','layedit'],
         });
         $(function () {
             let id = sessionStorage.getItem("userId");
-            let res = myAjax("/back/user/findById", {userId: id}, 'get');
+            let res = myAjax("/user/findById", {id: id}, 'get');
+            console.log(id);
             setData(res.data);
             setText(res.data);
         });

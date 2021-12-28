@@ -26,7 +26,6 @@ layui.use('table', function () {
             });
         } else if (obj.event === 'edit') {
             sessionStorage.setItem("userId", data.id);
-
             xadmin.open('编辑', 'member-edit.html', 600, 400);
         }
 
