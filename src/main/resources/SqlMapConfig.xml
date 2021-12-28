@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--配置允许懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--取消关联查询积极性-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--哪些方法触发关系查询-->
+        <setting name="lazyLoadTriggerMethods" value="clone"/>
+    </settings>
+    <!-- 别名的定义 -->
+    <typeAliases>
+        <!-- 批量定义别名 ，指定包名，自动扫描包中的类，别名即为类名，首字母大小写无所谓-->
+        <package name="com.cn.why.pojo"/>
+    </typeAliases>
+    <mappers>
+        <!-- 通过扫描包的方式来进行批量加载映射文件 -->
+        <package name="com.cn.why.mapper"/>
+    </mappers>
+</configuration>
