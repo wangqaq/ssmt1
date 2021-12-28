@@ -57,5 +57,10 @@ public class UserController {
         ResultModel resultModel = userService.enable(user);
         return resultModel;
     }
+    @RequestMapping("finById")
+    public ResultModel findById(User user){
+        ResultModel resultModel = userService.findById(user);
+        return resultModel;
+    }
 
 }
