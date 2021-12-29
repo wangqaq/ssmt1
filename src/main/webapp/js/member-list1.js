@@ -16,7 +16,7 @@ layui.use('table', function () {
             }
         } else if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                let res = myAjax("/back/user/delete", {userId: data.id});
+                let res = myAjax("/user/delete", {userId: data.id});
                 if (res.count === 1) {
                     obj.del();
                     layer.close(index);
@@ -42,7 +42,6 @@ layui.use('table', function () {
             id:this.value
         };
         console.log(data);
-        // myAjax("/user/enable", data);
         $.ajax({
             url: "/user/enable",
             type: 'get',

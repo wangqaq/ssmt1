@@ -11,7 +11,7 @@ layui.use(['form', 'upload','layer', 'jquery'],
                 data = data.field;
                 data.id=sessionStorage.getItem("navId");
 
-                let res = myAjax("/back/nav/update", data);
+                let res = myAjax("/nav/update", data);
                 if (res != undefined && res.count == 1) {
                     layer.alert("更新成功", {
                             icon: 6
@@ -35,7 +35,7 @@ layui.use(['form', 'upload','layer', 'jquery'],
     });
 $(function () {
     let id = sessionStorage.getItem("navId");
-    let res = myAjax("/back/nav/findNavById", {navId: id}, 'get');
+    let res = myAjax("/nav/findNavById", {navId: id}, 'get');
 //   将查询出来的数据进行赋值填充
     setData(res.data);
 });

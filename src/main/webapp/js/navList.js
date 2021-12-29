@@ -6,7 +6,7 @@ layui.use('table', function () {
         let data = obj.data;
         if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                let res = myAjax("/back/nav/deleteNav", {id: data.id});
+                let res = myAjax("/nav/deleteNav", {id: data.id});
                 if (res.count === 1) {
                     obj.del();
                     layer.close(index);
@@ -23,7 +23,7 @@ layui.use('table', function () {
     });
     table.render({
         elem: '#test'
-        , url: '/back/nav/findAllNav'
+        , url: '/nav/findAllNav'
         , cellMinWidth: 80
         , page: true
         , cols: [[
@@ -37,7 +37,7 @@ layui.use('table', function () {
     });
     form.on('switch(enableDemo)', function (obj) {
         console.log(this.value);
-        myAjax("/back/nav/enable", {id: this.value});
+        myAjax("/nav/enable", {id: this.value});
     });
 });
 

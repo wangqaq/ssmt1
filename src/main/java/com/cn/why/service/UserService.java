@@ -1,7 +1,7 @@
 package com.cn.why.service;
 
 
-import com.cn.why.pojo.User;
+import com.cn.why.entity.User;
 import com.cn.why.result.ResultModel;
 
 public interface UserService extends BaseService<User>{

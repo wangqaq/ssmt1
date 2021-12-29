@@ -1,4 +1,4 @@
-package com.cn.why.pojo;
+package com.cn.why.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

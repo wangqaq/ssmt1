@@ -65,7 +65,7 @@ layui.use(['layedit', 'upload', 'element', 'form', 'layer', 'jquery', 'laydate']
                 data.content = layedit.getContent(index);
 
 
-                let res = myAjax("/back/product/add", data);
+                let res = myAjax("/product/add", data);
 
 
                 if (res != undefined && res.count == 1) {

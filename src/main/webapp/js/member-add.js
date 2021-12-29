@@ -31,7 +31,7 @@ layui.use(['form', 'layer', 'jquery', 'laydate'],
                 });
                 data.hobby =arr.toLocaleString();
 
-                let res = myAjax("/back/user/add", data);
+                let res = myAjax("/user/add", data);
 
                 if (res != undefined && res.count == 1) {
                     layer.alert("增加成功", {

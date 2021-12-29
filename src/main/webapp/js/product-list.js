@@ -17,7 +17,7 @@ layui.use(['table'], function () {
             }
         } else if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                let res = myAjax("/back/product/delete", {id: data.id});
+                let res = myAjax("/product/delete", {id: data.id});
                 if (res.count === 1) {
                     obj.del();
                     layer.close(index);
@@ -42,7 +42,7 @@ layui.use(['table'], function () {
         });
     form.on('switch(enableDemo)', function (obj) {
 
-        myAjax("/back/product/enable", {id: this.value});
+        myAjax("/product/enable", {id: this.value});
     });
 });
 
@@ -52,7 +52,7 @@ function page(data) {
             , form = layui.form;
         table.render({
             elem: '#test'
-            , url: '/back/product/findAll'
+            , url: '/product/findAll'
             , cellMinWidth: 80
             , where: data//传递到后台的值
             , cols: [[

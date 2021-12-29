@@ -2,9 +2,10 @@ package com.cn.why.service.impl;
 
 
 import com.cn.why.mapper.UserDao;
-import com.cn.why.pojo.User;
+import com.cn.why.entity.User;
 import com.cn.why.result.ResultModel;
 import com.cn.why.service.UserService;
+import com.cn.why.tool.Date;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,7 +56,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultModel update (User user) {
+        Date date = new Date();
         int count = dao.update (user);
+        user.setUpdateTime(String.valueOf(date));
         return ResultModel.getModel (count);
     }
 

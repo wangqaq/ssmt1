@@ -4,6 +4,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd       http://www.springframework.org/schema/context      http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="com.cn.why.controller"/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截-->
+            <mvc:mapping path="/**"/>
+            <!--放行-->
+            <mvc:exclude-mapping path="/login.html"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/X-admin/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/code/checkCode"/>
+            <bean class="com.cn.why.interceptor.Interceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <mvc:annotation-driven>
         <!--消息转换器-->
         <mvc:message-converters>
