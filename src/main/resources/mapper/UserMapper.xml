@@ -19,9 +19,9 @@
     </resultMap>
     <insert id="add" parameterType="User">
         insert into member_list
-        (id, username, email, password, sex, phone, city, address, birthday, enable, hobby, img)
+        (id, username, email, password, sex, phone, city, address, birthday, enable, hobby)
         values (#{id}, #{username}, #{email}, #{password}, #{sex}, #{phone}, #{city}, #{address}, #{birthday},
-                #{enable}, #{hobby}, #{img})
+                #{enable}, #{hobby})
     </insert>
     <select id="findByUsernameAndPassword" parameterType="User" resultType="User">
         select *
@@ -57,26 +57,35 @@
                  left join files ON member_list.id = files.user_id
                  left join text on
             member_list.id = text.user_id
-        where id = #{id}
+        where member_list.id = #{id}
     </select>
     <delete id="del" parameterType="User">
-        delete *
+        delete
         from member_list
         where id = #{id}
     </delete>
     <update id="update" parameterType="User">
-        update memeber_list
+        update member_list
         set username=#{username}
-          , address=#{address}
-          , email=#{email}
-          , enable=#{enabel}
-          , password=#{password}
-          , phone=#{phone}
-          , sex=#{sex}
-          , update_time=now()
-          , hobby=#{hobby}
-          , birthday=#{birthday}
-          , text=#{text}
+        <if test="address !=null">
+            , address=#{address}
+        </if>
+        <if test="email !=null">
+            , email=#{email}
+        </if>
+        , enable=#{enable}
+        <if test="password!=null">
+            , password=#{password}
+        </if>
+
+        , phone=#{phone}
+        , sex=#{sex}
+        , update_time=now()
+        , hobby=#{hobby}
+        , birthday=#{birthday}
+        <if test="text!=null">
+            , text=#{text}
+        </if>
         where id = #{id}
     </update>
 </mapper>

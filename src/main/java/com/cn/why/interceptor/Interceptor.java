@@ -15,7 +15,7 @@ public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        if (request.getSession().getAttribute("loginName").equals("")) {
-//            request.getSession().setAttribute("ex",ex.getMessage());
+//            CommonResult.unauthorized("");
 //            response.sendRedirect("/404.html");
 //            return false;
 //        }

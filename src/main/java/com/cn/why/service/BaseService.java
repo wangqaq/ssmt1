@@ -1,19 +1,19 @@
 package com.cn.why.service;
 
 
-import com.cn.why.result.ResultModel;
+import com.cn.why.common.CommonResult;
 
 public interface BaseService<T> {
-    ResultModel findAll(T t);
+    CommonResult findAll(T t);
 
-    ResultModel del(T t);
+    CommonResult del(T t);
 
-    ResultModel add(T t);
+    CommonResult add(T t);
 
-    ResultModel findById(T t);
+    CommonResult findById(T t);
 
-    ResultModel update(T t);
+    CommonResult update(T t);
 
-    ResultModel getCount(T t);
-    ResultModel enable(T t);
+    CommonResult getCount(T t);
+    CommonResult enable(T t);
 }

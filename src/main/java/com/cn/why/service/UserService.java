@@ -2,11 +2,11 @@ package com.cn.why.service;
 
 
 import com.cn.why.entity.User;
-import com.cn.why.result.ResultModel;
+import com.cn.why.common.CommonResult;
 
 public interface UserService extends BaseService<User>{
 
-    ResultModel login(User user);
-    ResultModel enable(User user);
-    ResultModel addText(User user);
+    CommonResult login(User user);
+    CommonResult enable(User user);
+    CommonResult addText(User user);
 }

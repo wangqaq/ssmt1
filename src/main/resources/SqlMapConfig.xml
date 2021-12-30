@@ -4,12 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
+        <!-- 是否开启自动驼峰命名规则（camel case）映射，即从数据库列名 A_COLUMN 到属性名 aColumn 的类似映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--配置允许懒加载-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <!--取消关联查询积极性-->
         <setting name="aggressiveLazyLoading" value="false"/>
         <!--哪些方法触发关系查询-->
         <setting name="lazyLoadTriggerMethods" value="clone"/>
+        <!--日志输出-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <!-- 别名的定义 -->
     <typeAliases>
@@ -26,5 +30,4 @@
         <!-- 通过扫描包的方式来进行批量加载映射文件 -->
         <package name="com.cn.why.mapper"/>
     </mappers>
-
 </configuration>

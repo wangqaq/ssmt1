@@ -1,6 +1,6 @@
 package com.cn.why.exception;
 
-import com.cn.why.result.ResultModel;
+import com.cn.why.common.CommonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionResolver {
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResultModel error(Exception e) {
+    public CommonResult error(Exception e) {
         System.out.println(".......");
-        return ResultModel.getModel(1, e.getMessage());
+        return CommonResult.failed( e.getMessage());
     }
 }

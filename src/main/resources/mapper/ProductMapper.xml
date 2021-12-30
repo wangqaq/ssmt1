@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.why.mapper.ProductDao">
+    <resultMap id="ProductMapper" type="com.cn.why.entity.Product">
+        <result column="service_name" property="name"/>
+        <result column="price" property="normalPrice"/>
+        <result column="enable" property="enable"/>
+        <result column="img" property="imgHref"/>
+    </resultMap>
+<select id="findAll" resultType="Product" parameterType="Product">
+    select * from service_project where type='detail'
+</select>
+<select id="getCount" resultType="integer" parameterType="Product">
+    select count(id) from service_project where type='detail'
+</select>
+
+</mapper>
