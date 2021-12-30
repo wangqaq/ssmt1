@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public CommonResult findAll(Product Product) {
-        return CommonResult.success(productDao.findAll(Product), productDao.getCount(Product), "success");
+        return CommonResult.success(productDao.findAll(Product));
     }
 
     @Override

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.why.mapper.UserDao">
-    <resultMap id="UserMapper" type="com.cn.why.entity.User">
+    <resultMap id="userMapper" type="com.cn.why.entity.User">
         <result column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="email" property="email"/>
@@ -28,7 +28,7 @@
         from member_list
         where username = #{username}
           and password = #{password}</select>
-    <select id="findAll" parameterType="User" resultType="User">
+    <select id="findAll" parameterType="User" resultMap="userMapper">
         select * from member_list left join files ON member_list.id=files.user_id left join text on
         member_list.id=text.user_id
         <if test="start != null">
@@ -51,7 +51,7 @@
         set enable=1 - enable
         where id = #{id}
     </update>
-    <select id="findById" parameterType="User" resultType="User">
+    <select id="findById" parameterType="User" resultMap="userMapper">
         select *
         from member_list
                  left join files ON member_list.id = files.user_id
@@ -77,7 +77,6 @@
         <if test="password!=null">
             , password=#{password}
         </if>
-
         , phone=#{phone}
         , sex=#{sex}
         , update_time=now()

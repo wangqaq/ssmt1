@@ -86,7 +86,7 @@ public class UserController {
         commonResult.setCount(count);
         return  commonResult;
     }
-    @GetMapping("update")
+    @PostMapping("update")
     public CommonResult edit(User user){
         CommonResult commonResult = userService.update(user);
         return commonResult;
