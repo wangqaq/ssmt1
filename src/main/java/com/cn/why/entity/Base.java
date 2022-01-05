@@ -19,4 +19,6 @@ public class Base extends Page {
     private Integer isShow;
     private String img;
     private String code;
+    private String start;
+    private String end;
 }

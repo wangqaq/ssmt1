@@ -14,8 +14,6 @@ public class User extends Base {
     private String sex;
     private String birthday;
     private String hobby;
-    private String start;
-    private String end;
     private String text;
     private String city;
 }

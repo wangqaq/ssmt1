@@ -29,16 +29,13 @@
           and password = #{password}</select>
     <select id="findAll" parameterType="User" resultMap="userMapper">
         select * from member_list left join files ON member_list.id=files.user_id left join text on
-        member_list.id=text.user_id
-        <if test="start != null">
-            where birthday between #{start}
-        </if>
-        <if test="end != null">
-            and #{end}
-        </if>
+        member_list.id=text.user_id where 1=1
         <if test="username != null">
             <bind name="pattern" value="'%' + username + '%'"/>
             and username like #{pattern}
+        </if>
+        <if test="start != null">
+            and birthday between #{start} and #{end}
         </if>
     </select>
     <select id="getCount" parameterType="User" resultType="int">

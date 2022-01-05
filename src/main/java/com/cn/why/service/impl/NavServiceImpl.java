@@ -32,7 +32,7 @@ public class NavServiceImpl implements NavService {
         Page page = PageHelper.startPage(nav.getPage(),nav.getLimit());
         List<Nav> navList= navDao.findAll(nav);
         PageInfo info = new PageInfo<>(page.getResult());
-        return CommonResult.success (navList,info.getSize());
+        return CommonResult.success (navList,Math.toIntExact(info.getTotal()));
     }
     @Override
     public CommonResult del (Nav nav) {

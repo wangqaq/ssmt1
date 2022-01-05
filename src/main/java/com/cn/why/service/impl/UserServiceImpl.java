@@ -5,7 +5,7 @@ import com.cn.why.common.CommonResult;
 import com.cn.why.entity.User;
 import com.cn.why.mapper.UserDao;
 import com.cn.why.service.UserService;
-import com.cn.why.tool.Date;
+import com.cn.why.common.Date;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,16 +31,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResult findAll(User user) {
+        if (user.getStart()!=null){
+            if (user.getStart().equals("")){
+                user.setStart(null);
+            }
+        }
+        if (user.getEnd()!=null){
+            if (user.getEnd().equals("")){
+                user.setEnd(null);
+            }
+        }
         Page page = PageHelper.startPage(user.getPage(),user.getLimit());
         List<User> userList= dao.findAll(user);
         PageInfo info = new PageInfo<>(page.getResult());
-        return CommonResult.success (userList,info.getSize());
+        return CommonResult.success (userList, Math.toIntExact(info.getTotal()));
     }
 
     @Override
     public CommonResult del(User user) {
-        int count = dao.del(user);
-        return CommonResult.success(count);
+        int i = dao.del(user);
+        return CommonResult.success(i);
     }
 
     @Override
@@ -58,8 +68,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResult update(User user) {
         Date date = new Date();
-        int count = dao.update(user);
         user.setUpdateTime(String.valueOf(date));
+        int count = dao.update(user);
         return CommonResult.success(count);
     }
 

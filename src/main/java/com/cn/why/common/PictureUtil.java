@@ -16,14 +16,14 @@ public class PictureUtil {
     private static final int NUM = 5;
 
     /**
-     * 存入图片文件于本地
+     * 存入图片文件
      *
      * @param type  类型
      * @param picture 图片流
      * @return pictureName
      */
     public static String insertPicture(String type, MultipartFile picture) {
-        // 获取路径
+//        自定义路径
         String path ="D:/ssmt1web/upload/" + type + '/';
         logger.info(path);
         if (picture.isEmpty()) {

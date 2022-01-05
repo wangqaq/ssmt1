@@ -1,12 +1,17 @@
 package com.cn.why.service.impl;
 
 
+import com.cn.why.common.CommonResult;
 import com.cn.why.entity.Product;
 import com.cn.why.mapper.ProductDao;
-import com.cn.why.common.CommonResult;
 import com.cn.why.service.ProductService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("ProductService")
 public class ProductServiceImpl implements ProductService {
@@ -19,7 +24,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public CommonResult findAll(Product Product) {
-        return CommonResult.success(productDao.findAll(Product));
+        Page page = PageHelper.startPage(Product.getPage(),Product.getLimit());
+        List<Product>   productList = productDao.findAll(Product);
+        PageInfo info = new PageInfo<>(page.getResult());
+        return CommonResult.success(productList,Math.toIntExact(info.getTotal()));
     }
 
     @Override

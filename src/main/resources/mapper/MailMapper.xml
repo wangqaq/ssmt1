@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.why.mapper.MailDao">
+    <select id="findAll" parameterType="Mail" resultType="Mail">
+        select * from mail where 1=1
+        <if test="email!=null">
+            <bind name="pattern" value="'%' + email + '%'"/>
+            and email like #{pattern}
+        </if>
+        <if test="timeType =='publishTime'">
+            and publish_time between #{start} and #{end}
+        </if>
+        <if test="timeType =='callBackTime'">
+            and call_back_time between #{start} and #{end}
+        </if>
+    </select>
+    <select id="findById" parameterType="Mail" resultType="Mail">
+        select * from mail where id = #{id}
+    </select>
+    <update id="callBack" parameterType="Mail">
+        update mail set
+        call_back = #{callBack}
+         , call_back_time=#{callBackTime}
+         where id=#{id}
+    </update>
+    <update id="enable" parameterType="Mail">
+                update mail
+        set enable=1 - enable
+        where id = #{id}
+    </update>
+    <delete id="del" parameterType="Mail">
+        delete from mail where id = #{id}
+    </delete>
+    <insert id="add" parameterType="Mail">
+        insert into mail (email_address,title,detail) values (#{email},#{title},#{detail})
+    </insert>
+</mapper>

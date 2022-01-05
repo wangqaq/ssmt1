@@ -2,7 +2,7 @@ package com.cn.why.common;
 
 /**
  * 枚举了一些常用API操作码
- * Created by wx.mall on 2019/4/19.
+ *
  */
 public enum ResultCode implements IErrorCode {
     SUCCESS(0, "操作成功"),

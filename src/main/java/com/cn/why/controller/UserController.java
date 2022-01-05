@@ -83,13 +83,13 @@ public class UserController {
     }
     @GetMapping("add")
     public CommonResult add(User user){
-        int count;
-        CommonResult commonResult = userService.add(user);
-        count = userService.getCount(user).getCount();
-        jedis.set("count",String.valueOf(count));
-        jedis.expire("count",600);
-        commonResult.setCount(count);
-        return  commonResult;
+//        int count;
+//        CommonResult commonResult = userService.add(user);
+//        count = userService.getCount(user).getCount();
+//        jedis.set("count",String.valueOf(count));
+//        jedis.expire("count",600);
+//        commonResult.setCount(count);
+        return  userService.add(user);
     }
     @PostMapping("update")
     public CommonResult edit(User user){

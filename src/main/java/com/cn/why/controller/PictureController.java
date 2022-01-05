@@ -39,19 +39,19 @@ public class PictureController {
         File file = new File();
         if (name !=null) {
             if(type.equals("avatar")){
+                //  根据id 更新用户头像
                 String address = "/upload/avatar/"+name;
                 file.setSrc(address);
                 file.setUserId(id);
                 file.setType(type);
                 fileService.add(file);
                 return CommonResult.success(file);
-            }else if (type.equals("user")){
-                String address = "/upload/user/"+name;
+            }else{
+                //返回图片地址
+                String address = "/upload/"+type+"/"+name;
                 file.setSrc(address);
                 return CommonResult.success(file);
             }
-
-            // TODO 根据id更新 用户头像
             // 保存本地成功
 
 
