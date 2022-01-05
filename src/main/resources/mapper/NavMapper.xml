@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.why.mapper.NavDao">
+    <resultMap id="navMapper" type="com.cn.why.entity.Nav">
+        <result column="id" property="id"/>
+        <result column="inf_name" property="infName"/>
+        <result column="inf_type" property="infType"/>
+        <result column="inf_link" property="infLink"/>
+        <result column="enable" property="enable"/>
+        <result column="inf_value" property="infValue"/>
+    </resultMap>
+    <select id="findAll" resultMap="navMapper">
+        select * from inf_nav where inf_belong_to='nav_word'
+    </select>
+    <update id="enable" parameterType="Nav">
+        update inf_nav
+        set enable=1 - enable
+        where id = #{id}
+    </update>
+    <select id="findById" resultMap="navMapper">
+        select * from inf_nav where id = #{id}
+    </select>
+    <update id="update" parameterType="Nav">
+        update inf_nav set inf_name=#{infName},inf_link=#{infLink},enable=#{enable}
+    </update>
+</mapper>

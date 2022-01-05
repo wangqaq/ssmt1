@@ -3,16 +3,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.why.mapper.ProductDao">
     <resultMap id="productMapper" type="com.cn.why.entity.Product">
+        <result column="id" property="id"/>
         <result column="service_name" property="name"/>
         <result column="price" property="normalPrice"/>
         <result column="enable" property="enable"/>
         <result column="img" property="imgHref"/>
     </resultMap>
-<select id="findAll" resultMap="productMapper">
+    <select id="findAll" resultMap="productMapper">
     select * from service_project where type='detail'
 </select>
-<select id="getCount" resultType="int">
+    <select id="getCount" resultType="int">
     select count(id) from service_project where type='detail'
 </select>
-
+    <update id="enable" parameterType="Product">
+        update service_project
+        set enable=1 - enable
+        where id = #{id}
+    </update>
+    <select id="findById" resultMap="productMapper" parameterType="int">
+        select * from service_project where id=#{id}
+    </select>
 </mapper>

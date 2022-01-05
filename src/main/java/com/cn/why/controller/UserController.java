@@ -4,17 +4,15 @@ package com.cn.why.controller;
 import com.cn.why.common.CommonResult;
 import com.cn.why.entity.User;
 import com.cn.why.service.UserService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -25,17 +23,31 @@ public class UserController {
 
     @PostMapping("login")
     public CommonResult login(@RequestBody User user, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-
         String checkCode = (String) session.getAttribute("verifyCodeValue");
         CommonResult commonResult = userService.login(user);
-//        Jedis jedis  = new Jedis("localhost");
-//        jedis.set("commonResult", String.valueOf(commonResult));
-        if (commonResult.getMessage().equals("success")){
+        Jedis jedis  = new Jedis("localhost");
+        jedis.set("commonResult", String.valueOf(commonResult));
+        if (commonResult.getData().equals("success")){
+            request.getSession().setAttribute("loginName",user.getUsername());
             session.setAttribute("loginName",user.getUsername());
+            //设置session过期时间，单位s
+            session.setMaxInactiveInterval(60*10);
+            Cookie[] cookie= request.getCookies();
+            for (int i=0;i<cookie.length;i++){
+                if (cookie[i].getValue()!=null){
+                    System.out.println(session.getAttribute("loginName"));
+                    System.out.println("Cookie:"+cookie[i].getName()+"="+cookie[i].getValue()+"i="+i);
+                    jedis.set(cookie[i].getName(),cookie[i].getValue());
+                    jedis.expire(cookie[i].getName(),600);
+                }
+            }
+            commonResult.setMessage(user.getUsername());
         }
+
         //验证码校验
 //        if (!checkCode.equals("")) {
-//            if (!checkCode.equals(user.getCode())) {
+//        //equalsIgnoreCase忽略大小写
+//            if (!checkCode.equalsIgnoreCase(user.getCode())) {
 //                commonResult.setData("codeErr");
 //            }
 //        }else{
@@ -47,24 +59,17 @@ public class UserController {
 
     @GetMapping("findAll")
     public CommonResult FindAll(User user) {
-        CommonResult commonResult;
-        Page page= PageHelper.startPage(user.getPage(),user.getLimit());
-        commonResult = userService.findAll(user);
-        PageInfo info = new PageInfo<>(page.getResult());
-        commonResult.setCount(info.getSize());
-        return commonResult;
+        return userService.findAll(user);
     }
 
 
     @GetMapping("enable")
     public CommonResult enable(User user) {
-        CommonResult commonResult = userService.enable(user);
-        return commonResult;
+        return userService.enable(user);
     }
     @GetMapping("findById")
     public CommonResult findById(User user){
-        CommonResult commonResult = userService.findById(user);
-        return commonResult;
+        return userService.findById(user);
     }
     @GetMapping("delete")
     public CommonResult delete(User user){
@@ -88,7 +93,6 @@ public class UserController {
     }
     @PostMapping("update")
     public CommonResult edit(User user){
-        CommonResult commonResult = userService.update(user);
-        return commonResult;
+        return userService.update(user);
     }
 }

@@ -1,11 +1,14 @@
 package com.cn.why.service.impl;
 
 
+import com.cn.why.common.CommonResult;
 import com.cn.why.entity.User;
 import com.cn.why.mapper.UserDao;
-import com.cn.why.common.CommonResult;
 import com.cn.why.service.UserService;
 import com.cn.why.tool.Date;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +21,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResult login(User user) {
-        String msg;
         User i = dao.findByUsernameAndPassword(user);
         if (i == null) {
-            msg = "error";
+            return CommonResult.failed("登陆失败");
         } else {
-            msg = "success";
+            return CommonResult.success("登陆成功");
         }
-        return CommonResult.success(msg);
     }
 
     @Override
     public CommonResult findAll(User user) {
-        List<User> users = dao.findAll(user);
-        return CommonResult.success(users);
+        Page page = PageHelper.startPage(user.getPage(),user.getLimit());
+        List<User> userList= dao.findAll(user);
+        PageInfo info = new PageInfo<>(page.getResult());
+        return CommonResult.success (userList,info.getSize());
     }
 
     @Override

@@ -21,6 +21,13 @@ public class CommonResult<T> {
         this.data = data;
         this.count = count;
     }
+    /**
+     * 成功返回结果
+     * 无数据
+     */
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<T>(ResultCode.SUCCESS.getCode(),1, ResultCode.SUCCESS.getMessage(), null);
+    }
 
     /**
      * 成功返回结果
@@ -29,6 +36,17 @@ public class CommonResult<T> {
      */
     public static <T> CommonResult<T> success(T data) {
         return new CommonResult<T>(ResultCode.SUCCESS.getCode(),1, ResultCode.SUCCESS.getMessage(), data);
+    }
+
+    /**
+     *成功返回结果
+     *
+     * @param data 获取的数据
+     * @param count 总条数
+     */
+
+    public static <T> CommonResult<T> success(T data,Integer count) {
+        return new CommonResult<T>(ResultCode.SUCCESS.getCode(),count, ResultCode.SUCCESS.getMessage(), data);
     }
 
     /**

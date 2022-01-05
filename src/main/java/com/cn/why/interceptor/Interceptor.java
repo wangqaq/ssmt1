@@ -14,9 +14,9 @@ public class Interceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        if (request.getSession().getAttribute("loginName").equals("")) {
-//            CommonResult.unauthorized("");
-//            response.sendRedirect("/404.html");
+//        response.setHeader("Set-Cookie", "name=value; Path=/;Domain=localhost;Max-Age=seconds");
+//        if (request.getSession().getAttribute("loginName") == null) {
+//            response.getWriter().println(JSONObject.toJSON(CommonResult.unauthorized("未登录")));
 //            return false;
 //        }
         return true;

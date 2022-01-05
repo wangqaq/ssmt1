@@ -15,8 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
+@CrossOrigin(origins = "http://localhost")
 @Controller
-@CrossOrigin
 @RequestMapping("code")
 public class CodeController {
     /* 获取校验码 */
@@ -32,7 +32,6 @@ public class CodeController {
             output.writeTo(out);
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 
