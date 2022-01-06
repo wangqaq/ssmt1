@@ -15,5 +15,7 @@ public interface BaseDao<T> {
     int del(T t);
 
     T findById(T t);
+
+
     int enable(T t);
 }

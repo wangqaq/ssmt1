@@ -4,6 +4,8 @@ package com.cn.why.controller;
 import com.cn.why.common.CommonResult;
 import com.cn.why.entity.User;
 import com.cn.why.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
@@ -12,10 +14,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-@CrossOrigin(origins = "http://localhost")
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
 @RestController
 @RequestMapping("user")
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -27,16 +34,16 @@ public class UserController {
         CommonResult commonResult = userService.login(user);
         Jedis jedis  = new Jedis("localhost");
         jedis.set("commonResult", String.valueOf(commonResult));
-        if (commonResult.getData().equals("success")){
-            request.getSession().setAttribute("loginName",user.getUsername());
+        //如果登陆成功，则将loginName写入到session中
+        if (commonResult.getData().equals("登陆成功")){
             session.setAttribute("loginName",user.getUsername());
             //设置session过期时间，单位s
             session.setMaxInactiveInterval(60*10);
             Cookie[] cookie= request.getCookies();
             for (int i=0;i<cookie.length;i++){
                 if (cookie[i].getValue()!=null){
-                    System.out.println(session.getAttribute("loginName"));
-                    System.out.println("Cookie:"+cookie[i].getName()+"="+cookie[i].getValue()+"i="+i);
+                    logger.info((String) session.getAttribute("loginName"));
+                    logger.info("Cookie:"+ cookie[i].getName()+"="+cookie[i].getValue()+",i="+i);
                     jedis.set(cookie[i].getName(),cookie[i].getValue());
                     jedis.expire(cookie[i].getName(),600);
                 }
@@ -44,15 +51,6 @@ public class UserController {
             commonResult.setMessage(user.getUsername());
         }
 
-        //验证码校验
-//        if (!checkCode.equals("")) {
-//        //equalsIgnoreCase忽略大小写
-//            if (!checkCode.equalsIgnoreCase(user.getCode())) {
-//                commonResult.setData("codeErr");
-//            }
-//        }else{
-//            commonResult.setMsg("codeNull");
-//        }
         return commonResult;
     }
 
@@ -71,6 +69,15 @@ public class UserController {
     public CommonResult findById(User user){
         return userService.findById(user);
     }
+
+    //删除多用户
+    @PostMapping("delAllUser")
+    public CommonResult delAllUser(String ids) {
+        String[] strs = ids.split(",");
+        List<String> delList = new ArrayList<>(Arrays.asList(strs));
+        return userService.delAllUser(delList);
+    }
+
     @GetMapping("delete")
     public CommonResult delete(User user){
         int count;

@@ -6,7 +6,7 @@ import com.cn.why.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
 @RestController
 @RequestMapping("mail")
 public class MailController {
@@ -28,7 +28,7 @@ public class MailController {
     public CommonResult update(Mail mail){
         return mailService.update(mail);
     }
-    @GetMapping("delete")
+    @PostMapping("delete")
     public CommonResult del(Mail mail){
         return mailService.del(mail);
     }

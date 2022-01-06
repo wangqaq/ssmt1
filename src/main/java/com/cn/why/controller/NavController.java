@@ -5,7 +5,7 @@ import com.cn.why.entity.Nav;
 import com.cn.why.service.NavService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
 @RestController
 @RequestMapping("nav")
 public class NavController {

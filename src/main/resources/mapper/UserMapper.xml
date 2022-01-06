@@ -96,4 +96,11 @@
         </if>
         where id = #{id}
     </update>
+    <!--删除多用户-->
+    <delete id="delAllUser">
+        delete from member_list where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

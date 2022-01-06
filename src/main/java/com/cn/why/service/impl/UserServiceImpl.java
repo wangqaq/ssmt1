@@ -2,10 +2,10 @@ package com.cn.why.service.impl;
 
 
 import com.cn.why.common.CommonResult;
+import com.cn.why.common.Date;
 import com.cn.why.entity.User;
 import com.cn.why.mapper.UserDao;
 import com.cn.why.service.UserService;
-import com.cn.why.common.Date;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -88,5 +88,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResult addText(User user) {
         return CommonResult.success(dao.addText(user));
+    }
+
+    @Override
+    public CommonResult delAllUser(List<String> delList) {
+        int i=  dao.delAllUser(delList);
+        return CommonResult.success(i);
     }
 }

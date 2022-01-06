@@ -43,15 +43,14 @@ public class PictureUtil {
 
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
+            boolean i = dest.getParentFile().mkdirs();
         }
         try {
             picture.transferTo(dest);
             logger.info("上传成功后的文件路径：" + path + pictureName);
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(String.valueOf(e));
             return null;
         }
         return pictureName;

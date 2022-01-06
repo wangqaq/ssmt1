@@ -8,7 +8,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
 @RestController
 @RequestMapping("product")
 public class ProductController {
