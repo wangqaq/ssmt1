@@ -14,11 +14,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
+/**
+ * 用户管理
+ *
+ * @return com.cn.why.common.CommonResult
+ */
+
+@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -28,24 +32,30 @@ public class UserController {
 
     private Jedis jedis = new Jedis();
 
+    // TODO   忘记密码
+    @PostMapping("rePassword")
+    public CommonResult rePassword(User user){
+        return null;
+    }
+
     @PostMapping("login")
     public CommonResult login(@RequestBody User user, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         String checkCode = (String) session.getAttribute("verifyCodeValue");
         CommonResult commonResult = userService.login(user);
-        Jedis jedis  = new Jedis("localhost");
-        jedis.set("commonResult", String.valueOf(commonResult));
+//        Jedis jedis = new Jedis("localhost");
+//        jedis.set("commonResult", String.valueOf(commonResult));
         //如果登陆成功，则将loginName写入到session中
-        if (commonResult.getData().equals("登陆成功")){
-            session.setAttribute("loginName",user.getUsername());
+        if (commonResult.getData().equals("登陆成功")) {
+            session.setAttribute("loginName", user.getUsername());
             //设置session过期时间，单位s
-            session.setMaxInactiveInterval(60*10);
-            Cookie[] cookie= request.getCookies();
-            for (int i=0;i<cookie.length;i++){
-                if (cookie[i].getValue()!=null){
+            session.setMaxInactiveInterval(60 * 10);
+            Cookie[] cookie = request.getCookies();
+            for (int i = 0; i < cookie.length; i++) {
+                if (cookie[i].getValue() != null) {
                     logger.info((String) session.getAttribute("loginName"));
-                    logger.info("Cookie:"+ cookie[i].getName()+"="+cookie[i].getValue()+",i="+i);
-                    jedis.set(cookie[i].getName(),cookie[i].getValue());
-                    jedis.expire(cookie[i].getName(),600);
+                    logger.info("Cookie:" + cookie[i].getName() + "=" + cookie[i].getValue() + ",i=" + i);
+                    jedis.set(cookie[i].getName(), cookie[i].getValue());
+                    jedis.expire(cookie[i].getName(), 600);
                 }
             }
             commonResult.setMessage(user.getUsername());
@@ -65,8 +75,9 @@ public class UserController {
     public CommonResult enable(User user) {
         return userService.enable(user);
     }
+
     @GetMapping("findById")
-    public CommonResult findById(User user){
+    public CommonResult findById(User user) {
         return userService.findById(user);
     }
 
@@ -79,27 +90,29 @@ public class UserController {
     }
 
     @GetMapping("delete")
-    public CommonResult delete(User user){
+    public CommonResult delete(User user) {
         int count;
         CommonResult commonResult = userService.del(user);
         count = userService.getCount(user).getCount();
-        jedis.set("count",String.valueOf(count));
-        jedis.expire("count",600);
+        jedis.set("count", String.valueOf(count));
+        jedis.expire("count", 600);
         commonResult.setCount(count);
-        return  commonResult;
+        return commonResult;
     }
+
     @GetMapping("add")
-    public CommonResult add(User user){
+    public CommonResult add(User user) {
 //        int count;
 //        CommonResult commonResult = userService.add(user);
 //        count = userService.getCount(user).getCount();
 //        jedis.set("count",String.valueOf(count));
 //        jedis.expire("count",600);
 //        commonResult.setCount(count);
-        return  userService.add(user);
+        return userService.add(user);
     }
+
     @PostMapping("update")
-    public CommonResult edit(User user){
+    public CommonResult edit(User user) {
         return userService.update(user);
     }
 }

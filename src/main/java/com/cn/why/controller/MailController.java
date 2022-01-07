@@ -6,39 +6,51 @@ import com.cn.why.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
+/**
+ * 邮件管理
+ *
+ * @return com.cn.why.common.CommonResult
+ */
+@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("mail")
 public class MailController {
     @Autowired
     private MailService mailService;
+
     @GetMapping("findAll")
-    public CommonResult findAll(Mail mail){
+    public CommonResult findAll(Mail mail) {
         return mailService.findAll(mail);
     }
+
     @GetMapping("enable")
-    public CommonResult enable(Mail mail){
+    public CommonResult enable(Mail mail) {
         return mailService.enable(mail);
     }
+
     @GetMapping("add")
-    public  CommonResult add(Mail mail){
+    public CommonResult add(Mail mail) {
         return mailService.add(mail);
     }
+
     @PostMapping("update")
-    public CommonResult update(Mail mail){
+    public CommonResult update(Mail mail) {
         return mailService.update(mail);
     }
+
     @PostMapping("delete")
-    public CommonResult del(Mail mail){
+    public CommonResult del(Mail mail) {
         return mailService.del(mail);
     }
+
     @GetMapping("findById")
-    public CommonResult findById(Mail mail){
+    public CommonResult findById(Mail mail) {
         return mailService.findById(mail);
     }
+
     @PostMapping("callBack")
-    public CommonResult callBack(Mail mail){
-        return  mailService.callBack(mail);
+    public CommonResult callBack(Mail mail) {
+        return mailService.callBack(mail);
     }
 
 }

@@ -63,7 +63,7 @@ public class PictureUtil {
      * @param sources    验证码字符源
      * @return String
      */
-    private static String generateVerifyCode(int verifySize, String sources) {
+    public static String generateVerifyCode(int verifySize, String sources) {
         int codesLen = sources.length();
         Random rand = new Random(System.currentTimeMillis());
         StringBuilder verifyCode = new StringBuilder(verifySize);

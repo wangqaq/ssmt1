@@ -2,6 +2,7 @@
   <dictionary name="Master">
     <words>
       <w>aliyun</w>
+      <w>desp</w>
       <w>jedis</w>
     </words>
   </dictionary>

@@ -15,7 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
-@CrossOrigin(origins = "http://localhost",allowCredentials="true", allowedHeaders="*")
+
+@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
 @Controller
 @RequestMapping("code")
 public class CodeController {

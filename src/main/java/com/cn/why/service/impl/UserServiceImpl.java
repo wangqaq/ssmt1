@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResult findAll(User user) {
+        /*
+        如果start和end不为null且为""  则设置为null
+         */
         if (user.getStart()!=null){
             if (user.getStart().equals("")){
                 user.setStart(null);
@@ -41,7 +44,9 @@ public class UserServiceImpl implements UserService {
                 user.setEnd(null);
             }
         }
+//        开启分页
         Page page = PageHelper.startPage(user.getPage(),user.getLimit());
+//        调用dao层 得到数据库数据
         List<User> userList= dao.findAll(user);
         PageInfo info = new PageInfo<>(page.getResult());
         return CommonResult.success (userList, Math.toIntExact(info.getTotal()));

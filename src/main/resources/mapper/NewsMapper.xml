@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.why.mapper.NewsDao">
+    <resultMap id="newsMap" type="com.cn.why.entity.News">
+
+    </resultMap>
+
+    <select id="findAll" parameterType="News" resultMap="newsMap">
+
+    </select>
+    <insert id="add" parameterType="News">
+
+    </insert>
+    <update id="enable" parameterType="News">
+
+    </update>
+    <delete id="del" parameterType="News">
+
+    </delete>
+    <update id="update" parameterType="News">
+
+    </update>
+
+</mapper>
