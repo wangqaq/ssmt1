@@ -21,6 +21,12 @@ public class MailServiceImpl implements MailService {
     public CommonResult findAll(Mail mail) {
         Page page = PageHelper.startPage(mail.getPage(),mail.getLimit());
         List<Mail> mailList= mailDao.findAll(mail);
+        for (Mail mail1:mailList
+             ) {
+            if (mail1.getCallBack()==null){
+                mail1.setCallBack("未回复");
+            }
+        }
         PageInfo info = new PageInfo<>(page.getResult());
         if (info.getSize()!=0){
             return CommonResult.success(mailList,Math.toIntExact(info.getTotal()));
@@ -86,7 +92,6 @@ public class MailServiceImpl implements MailService {
         }
     }
 
-    @Override
     public CommonResult callBack(Mail mail) {
         mail.setCallBackTime(Date.getDate());
         int i = mailDao.callBack(mail);

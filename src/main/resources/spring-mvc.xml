@@ -15,9 +15,6 @@
             <!--拦截-->
             <mvc:mapping path="/**"/>
             <!--放行-->
-            <mvc:exclude-mapping path="/login.html"/>
-            <mvc:exclude-mapping path="/js/**"/>
-            <mvc:exclude-mapping path="/X-admin/**"/>
             <mvc:exclude-mapping path="/user/login"/>
             <mvc:exclude-mapping path="/code/checkCode"/>
             <bean class="com.cn.why.interceptor.Interceptor"/>
@@ -40,6 +37,8 @@
     </mvc:annotation-driven>
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
+<!--    全局异常处理-->
+    <bean id="exceptionHandler" class="com.cn.why.exception.ExceptionResolver"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>

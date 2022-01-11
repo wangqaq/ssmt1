@@ -1,7 +1,12 @@
 package com.cn.why.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cn.why.common.CommonResult;
+import com.cn.why.common.HttpUtil;
+import com.cn.why.common.PictureUtil;
+import com.cn.why.entity.ServerChan;
 import com.cn.why.entity.User;
 import com.cn.why.service.UserService;
 import org.slf4j.Logger;
@@ -34,16 +39,41 @@ public class UserController {
 
     // TODO   忘记密码
     @PostMapping("rePassword")
-    public CommonResult rePassword(User user){
-        return null;
+    public CommonResult rePassword(User user) {
+        String randcode = user.getCode();
+        /*
+        发送验证码
+         */
+        String url = "https://sctapi.ftqq.com/SCT58654TEI9PKAb5Fss8d6d9fk5M7yVP.send";
+        String strs = "123456789";
+        String code = PictureUtil.generateVerifyCode(5, strs);
+        Map<String, String> map = new HashMap<String, String>();
+        String msg = "你的验证码是：" + code + "，有效期十分钟，过期请重新获取";
+        System.out.println(msg);
+        map.put("title", "中国铁塔");
+        map.put("desp", msg);
+        String result = HttpUtil.sendPost(url, map);
+        System.out.println(result);
+        //将数据封装成JSON
+        JSONObject data = JSON.parseObject(result).getJSONObject("data");
+        //从JSON中获取数据
+        Integer pushid = data.getInteger("pushid");
+        Object readkey = data.get("readkey");
+        //封装到实体中
+        ServerChan serverChan = new ServerChan();
+        serverChan.setPushid(String.valueOf(pushid));
+        serverChan.setReadkey(String.valueOf(readkey));
+        serverChan.setCode(code);
+        int i = 10/0;
+        return CommonResult.success();
     }
 
     @PostMapping("login")
     public CommonResult login(@RequestBody User user, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         String checkCode = (String) session.getAttribute("verifyCodeValue");
         CommonResult commonResult = userService.login(user);
-//        Jedis jedis = new Jedis("localhost");
-//        jedis.set("commonResult", String.valueOf(commonResult));
+        Jedis jedis = new Jedis("localhost");
+        jedis.set("commonResult", String.valueOf(commonResult));
         //如果登陆成功，则将loginName写入到session中
         if (commonResult.getData().equals("登陆成功")) {
             session.setAttribute("loginName", user.getUsername());
