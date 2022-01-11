@@ -43,8 +43,9 @@ public class UserController {
         String randcode = user.getCode();
         /*
         发送验证码
+        serverChan
          */
-        String url = "https://sctapi.ftqq.com/SCT58654TEI9PKAb5Fss8d6d9fk5M7yVP.send";
+        String url = "https://sctapi.ftqq.com/*****.send";
         String strs = "123456789";
         String code = PictureUtil.generateVerifyCode(5, strs);
         Map<String, String> map = new HashMap<String, String>();
