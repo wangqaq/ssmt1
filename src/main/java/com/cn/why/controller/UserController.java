@@ -58,12 +58,12 @@ public class UserController {
         //将数据封装成JSON
         JSONObject data = JSON.parseObject(result).getJSONObject("data");
         //从JSON中获取数据
-        Integer pushid = data.getInteger("pushid");
-        Object readkey = data.get("readkey");
+        Integer pushId = data.getInteger("pushid");
+        Object readKey = data.get("readkey");
         //封装到实体中
         ServerChan serverChan = new ServerChan();
-        serverChan.setPushid(String.valueOf(pushid));
-        serverChan.setReadkey(String.valueOf(readkey));
+        serverChan.setPushid(String.valueOf(pushId));
+        serverChan.setReadkey(String.valueOf(readKey));
         serverChan.setCode(code);
         int i = 10/0;
         return CommonResult.success();
