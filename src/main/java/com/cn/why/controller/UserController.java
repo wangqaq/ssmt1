@@ -1,16 +1,11 @@
 package com.cn.why.controller;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.cn.why.common.CommonResult;
-import com.cn.why.common.HttpUtil;
-import com.cn.why.common.PictureUtil;
-import com.cn.why.entity.ServerChan;
+import com.cn.why.common.ServerChanUtil;
 import com.cn.why.entity.User;
 import com.cn.why.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
@@ -19,19 +14,20 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 用户管理
  *
  * @return com.cn.why.common.CommonResult
  */
-
+@Slf4j
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")
 public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -40,32 +36,9 @@ public class UserController {
     // TODO   忘记密码
     @PostMapping("rePassword")
     public CommonResult rePassword(User user) {
-        String randcode = user.getCode();
-        /*
-        发送验证码
-        serverChan
-         */
-        String url = "https://sctapi.ftqq.com/*****.send";
-        String strs = "123456789";
-        String code = PictureUtil.generateVerifyCode(5, strs);
-        Map<String, String> map = new HashMap<String, String>();
-        String msg = "你的验证码是：" + code + "，有效期十分钟，过期请重新获取";
-        System.out.println(msg);
-        map.put("title", "中国铁塔");
-        map.put("desp", msg);
-        String result = HttpUtil.sendPost(url, map);
-        System.out.println(result);
-        //将数据封装成JSON
-        JSONObject data = JSON.parseObject(result).getJSONObject("data");
-        //从JSON中获取数据
-        Integer pushId = data.getInteger("pushid");
-        Object readKey = data.get("readkey");
-        //封装到实体中
-        ServerChan serverChan = new ServerChan();
-        serverChan.setPushid(String.valueOf(pushId));
-        serverChan.setReadkey(String.valueOf(readKey));
-        serverChan.setCode(code);
-        int i = 10/0;
+        ServerChanUtil serverChanUtil = new ServerChanUtil();
+        String MessageCode = serverChanUtil.sendCode().getRandCode();
+        int i = 10 / 0;
         return CommonResult.success();
     }
 
@@ -83,8 +56,8 @@ public class UserController {
             Cookie[] cookie = request.getCookies();
             for (int i = 0; i < cookie.length; i++) {
                 if (cookie[i].getValue() != null) {
-                    logger.info((String) session.getAttribute("loginName"));
-                    logger.info("Cookie:" + cookie[i].getName() + "=" + cookie[i].getValue() + ",i=" + i);
+                    log.info((String) session.getAttribute("loginName"));
+                    log.info("Cookie:" + cookie[i].getName() + "=" + cookie[i].getValue() + ",i=" + i);
                     jedis.set(cookie[i].getName(), cookie[i].getValue());
                     jedis.expire(cookie[i].getName(), 600);
                 }

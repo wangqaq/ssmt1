@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpUtil {
+
+
     /**
      * 发送HttpPost请求，参数为map
+     *
      * @param url
      * @param map
      * @return
@@ -50,8 +53,10 @@ public class HttpUtil {
         }
         return result;
     }
+
     /**
      * 发送HttpGet请求
+     *
      * @param url
      * @return
      */

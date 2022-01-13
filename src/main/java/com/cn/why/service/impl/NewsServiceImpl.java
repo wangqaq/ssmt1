@@ -14,16 +14,17 @@ import java.util.List;
 
 @Service("NewsService")
 public class NewsServiceImpl implements NewsService {
-@Autowired
-private NewsDao dao;
+    @Autowired
+    private NewsDao dao;
+
     @Override
     public CommonResult findAll(News news) {
-        Page page = PageHelper.startPage(news.getPage(),news.getLimit());
+        Page page = PageHelper.startPage(news.getPage(), news.getLimit());
         List<News> newsList = dao.findAll(news);
         PageInfo info = new PageInfo(page.getResult());
-        if (newsList!=null){
+        if (newsList != null) {
             return CommonResult.success(newsList, Math.toIntExact(info.getTotal()));
-        }else{
+        } else {
             return CommonResult.failed();
         }
     }
@@ -31,9 +32,9 @@ private NewsDao dao;
     @Override
     public CommonResult del(News news) {
         int i = dao.del(news);
-        if (i==1){
+        if (i == 1) {
             return CommonResult.success("");
-        }else{
+        } else {
             return CommonResult.failed("失败");
         }
     }
@@ -41,9 +42,9 @@ private NewsDao dao;
     @Override
     public CommonResult add(News news) {
         int i = dao.add(news);
-        if (i==1){
+        if (i == 1) {
             return CommonResult.success("");
-        }else{
+        } else {
             return CommonResult.failed("失败");
         }
     }
@@ -51,9 +52,9 @@ private NewsDao dao;
     @Override
     public CommonResult findById(News news) {
         news = dao.findById(news);
-        if (news!=null){
+        if (news != null) {
             return CommonResult.success(news);
-        }else{
+        } else {
             return CommonResult.failed();
         }
     }
@@ -61,9 +62,9 @@ private NewsDao dao;
     @Override
     public CommonResult update(News news) {
         int i = dao.update(news);
-        if (i==1){
+        if (i == 1) {
             return CommonResult.success("");
-        }else{
+        } else {
             return CommonResult.failed("失败");
         }
     }
@@ -76,9 +77,9 @@ private NewsDao dao;
     @Override
     public CommonResult enable(News news) {
         int i = dao.enable(news);
-        if (i==1){
+        if (i == 1) {
             return CommonResult.success("");
-        }else{
+        } else {
             return CommonResult.failed("失败");
         }
     }

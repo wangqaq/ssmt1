@@ -1,20 +1,19 @@
 package com.cn.why.exception;
 
 import com.cn.why.common.CommonResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+@Slf4j
 @ControllerAdvice
 public class ExceptionResolver {
-    private static final Logger logger = LoggerFactory.getLogger(ExceptionResolver.class);
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public CommonResult error(Exception e) {
-        logger.info(String.valueOf(e));
-        logger.info("............");
+        log.info(String.valueOf(e));
+        log.info("............");
         return CommonResult.failed(e.getMessage());
     }
 }

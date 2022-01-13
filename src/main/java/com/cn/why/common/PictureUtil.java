@@ -1,44 +1,41 @@
 package com.cn.why.common;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+@Slf4j
 public class PictureUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(PictureUtil.class);
-
     private static final String CODES = "0123456789";
     private static final int NUM = 5;
 
     /**
      * 存入图片文件
      *
-     * @param type  类型
+     * @param type    类型
      * @param picture 图片流
      * @return pictureName
      */
     public static String insertPicture(String type, MultipartFile picture) {
 //        自定义路径
-        String path ="D:/ssmt1web/upload/" + type + '/';
-        logger.info(path);
+        String path = "D:/ssmt1web/upload/" + type + '/';
+        log.info(path);
         if (picture.isEmpty()) {
             return null;
         }
 
         // 获取文件名
         String pictureName = picture.getOriginalFilename();
-        logger.info("接收到的文件名为：" + pictureName);
+        log.info("接收到的文件名为：" + pictureName);
         // 获取文件的后缀名
         String suffixName = pictureName.substring(pictureName.lastIndexOf("."));
-        logger.info("获取后缀：" + suffixName);
+        log.info("获取后缀：" + suffixName);
 
         // 随机图片名
-        pictureName = generateVerifyCode(NUM,CODES) + suffixName;
+        pictureName = generateVerifyCode(NUM, CODES) + suffixName;
         File dest = new File(path, pictureName);
 
         // 检测是否存在目录
@@ -47,10 +44,10 @@ public class PictureUtil {
         }
         try {
             picture.transferTo(dest);
-            logger.info("上传成功后的文件路径：" + path + pictureName);
+            log.info("上传成功后的文件路径：" + path + pictureName);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
-            logger.info(String.valueOf(e));
+            log.info(String.valueOf(e));
             return null;
         }
         return pictureName;

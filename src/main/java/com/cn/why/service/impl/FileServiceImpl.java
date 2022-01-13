@@ -25,9 +25,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public CommonResult add(File file) {
         int count = fileDao.add(file);
-        if (count>0){
+        if (count > 0) {
             return CommonResult.success();
-        }else{
+        } else {
             return CommonResult.failed("添加失败");
         }
     }

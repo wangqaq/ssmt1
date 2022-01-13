@@ -24,10 +24,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public CommonResult findAll(Product Product) {
-        Page page = PageHelper.startPage(Product.getPage(),Product.getLimit());
-        List<Product>   productList = productDao.findAll(Product);
+        Page page = PageHelper.startPage(Product.getPage(), Product.getLimit());
+        List<Product> productList = productDao.findAll(Product);
         PageInfo info = new PageInfo<>(page.getResult());
-        return CommonResult.success(productList,Math.toIntExact(info.getTotal()));
+        return CommonResult.success(productList, Math.toIntExact(info.getTotal()));
     }
 
     @Override

@@ -34,22 +34,22 @@ public class UserServiceImpl implements UserService {
         /*
         如果start和end不为null且为""  则设置为null
          */
-        if (user.getStart()!=null){
-            if (user.getStart().equals("")){
+        if (user.getStart() != null) {
+            if (user.getStart().equals("")) {
                 user.setStart(null);
             }
         }
-        if (user.getEnd()!=null){
-            if (user.getEnd().equals("")){
+        if (user.getEnd() != null) {
+            if (user.getEnd().equals("")) {
                 user.setEnd(null);
             }
         }
 //        开启分页
-        Page page = PageHelper.startPage(user.getPage(),user.getLimit());
+        Page page = PageHelper.startPage(user.getPage(), user.getLimit());
 //        调用dao层 得到数据库数据
-        List<User> userList= dao.findAll(user);
+        List<User> userList = dao.findAll(user);
         PageInfo info = new PageInfo<>(page.getResult());
-        return CommonResult.success (userList, Math.toIntExact(info.getTotal()));
+        return CommonResult.success(userList, Math.toIntExact(info.getTotal()));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResult delAllUser(List<String> delList) {
-        int i=  dao.delAllUser(delList);
+        int i = dao.delAllUser(delList);
         return CommonResult.success(i);
     }
 }

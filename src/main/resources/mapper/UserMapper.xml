@@ -62,7 +62,7 @@
     </delete>
     <update id="update" parameterType="User">
         update member_list set
-         update_time=now()
+        update_time=now()
         <if test="username !=null">
             ,username=#{username}
         </if>

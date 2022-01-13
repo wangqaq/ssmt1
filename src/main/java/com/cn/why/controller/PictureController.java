@@ -5,8 +5,7 @@ import com.cn.why.common.PictureUtil;
 import com.cn.why.entity.File;
 import com.cn.why.entity.User;
 import com.cn.why.service.FileService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @Controller
 @RequestMapping("picture")
 public class PictureController {
-    private static Logger logger = LoggerFactory.getLogger(PictureController.class);
     @Autowired
     private FileService fileService;
 //    @Autowired
@@ -46,7 +45,7 @@ public class PictureController {
                 file.setSrc(address);
                 file.setUserId(id);
                 file.setType(type);
-                logger.info("文件属性：" + file);
+                log.info("文件属性：" + file);
                 //调用fileService，将实体类属性写入数据库
                 if (fileService.add(file).getCode() == 0) {
                     //返回图片路径
