@@ -27,7 +27,7 @@ import java.util.*;
  * @return com.cn.why.common.CommonResult
  */
 
-@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")
 public class UserController {

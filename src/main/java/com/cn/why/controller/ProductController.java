@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @return com.cn.why.common.CommonResult
  */
-@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("product")
 public class ProductController {

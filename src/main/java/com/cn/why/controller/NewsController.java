@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 // TODO sql语句
 
-@CrossOrigin(origins = "http://localhost", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @Controller
 @RequestMapping("news")
 public class NewsController {
